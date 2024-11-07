@@ -15,6 +15,9 @@ Route::name("auth.")->prefix('/auth')->group(function () {
     Route::resource('categories', \App\Http\Controllers\CategoryController::class)
         ->except(['create', 'edit']);
 
+    Route::resource('clients', \App\Http\Controllers\ClientController::class)
+        ->except(['create', 'edit']);
+
 
 });
 

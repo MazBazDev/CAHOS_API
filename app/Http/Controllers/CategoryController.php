@@ -11,7 +11,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
-        return $categories;
+        return response()->json($categories);
     }
 
     public function store(Request $request)
@@ -20,12 +20,14 @@ class CategoryController extends Controller
             'name' => 'required|string'
         ]);
 
-        return Category::create($request->all());
+        $category = Category::create($request->all());
+
+        return response()->json($category);
     }
 
     public function show(Category $category)
     {
-        return $category;
+        return response()->json($category);
     }
 
     public function update(Request $request, Category $category)
@@ -36,11 +38,11 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
-        return $category;
+        return response()->json($category);
     }
 
     public function destroy(Category $category)
     {
-        return $category->delete();
+        return response()->json($category->delete());
     }
 }

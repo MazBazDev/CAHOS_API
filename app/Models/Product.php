@@ -15,6 +15,8 @@ class Product extends Model
         'category_id'
     ];
 
+    protected $with = ['category'];
+
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Category::class);

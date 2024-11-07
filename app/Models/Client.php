@@ -12,6 +12,8 @@ class Client extends Model
         'siret'
     ];
 
+    protected $with = ['orders'];
+
     public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Order::class);
