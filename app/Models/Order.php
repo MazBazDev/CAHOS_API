@@ -22,8 +22,8 @@ class Order extends Model
         return $this->belongsTo(Client::class);
     }
 
-    public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsToMany(Product::class)->withPivot('quantity');
+        return $this->belongsTo(Product::class);
     }
 }

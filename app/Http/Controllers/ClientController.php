@@ -17,15 +17,15 @@ class ClientController extends Controller
     {
         $client = Client::create($request->validated());
 
-        return response()->json($client, 201);
+        return response()->json($client->load("orders", "orders.product"), 201);
     }
 
     public function show(Client $client)
     {
-        return response()->json($client);
+        return response()->json($client->load("orders"));
     }
 
-    public function update(ClientRequest $request, Client $client)
+    public function update(UpdateClientRequest $request, Client $client)
     {
         $client->update($request->validated());
 

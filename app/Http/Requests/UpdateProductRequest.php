@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClientRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,9 +14,12 @@ class ClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["required", "string"],
-            "address" => ["required", "string"],
-            "siret" => ["required", "string"]
+            "name" => ["string"],
+            "quantity" => ["integer"],
+            "price" => ["numeric"],
+            "expiration_date" => ["date"],
+            "location" => ["string"],
+            "category_id" => ["integer", "exists:categories,id"]
         ];
     }
 }
