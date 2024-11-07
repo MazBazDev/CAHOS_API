@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    /**
+     * @unauthenticated
+     */
     public function register(Request $request) {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string',
+        $validated = $request->validate([
+            'name' => ['required','string'],
+            'email' => ['required','email','unique:users,email'],
+            'password' => ['required','string'],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
+        $user = User::create($validated);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -28,6 +28,9 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @unauthenticated
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -43,6 +46,8 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->firstOrFail();
 
+        $user->tokens()->delete();
+
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -53,7 +58,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
 
         return response()->json([
             'message' => 'Logged out',
