@@ -11,5 +11,10 @@ Route::name("auth.")->prefix('/auth')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::get("/me", [AuthController::class, 'me'])->name("me");
     });
+
+    Route::resource('categories', \App\Http\Controllers\CategoryController::class)
+        ->except(['create', 'edit']);
+
+
 });
 
