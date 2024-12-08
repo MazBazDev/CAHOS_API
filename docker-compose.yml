@@ -11,6 +11,7 @@ services:
             - ./:/app
         environment:
             - APP_NAME="Cahos API by MazBaz"
+            - APP_KEY=base64:SW8Tk7bG/we+jjzZ4fML0LemopwUbZjWC8SduF3oQQ4=
             - APP_ENV=local
             - APP_DEBUG=true
             - DB_CONNECTION=sqlite
