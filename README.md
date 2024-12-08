@@ -63,4 +63,4 @@ The application automatically runs database migrations and seeds the database wh
 
 The database schema consists of the following tables:
 
-![Database Schema](https://raw.githubusercontent.com/mazbazdev/cahos_api/develop/database/diagram.png)
+![Database Schema]([https://raw.githubusercontent.com/mazbazdev/cahos_api/develop/database/diagram.png](https://github.com/MazBazDev/CAHOS_API/blob/develop/database/diagram.png?raw=true))
