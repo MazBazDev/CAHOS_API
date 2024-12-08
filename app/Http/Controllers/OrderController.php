@@ -24,14 +24,23 @@ class OrderController extends Controller
 
         $order = Order::create($data);
 
-        $product->stock -= $data["quantity"];
+        $product->quantity -= $data["quantity"];
         $product->save();
 
-        return response()->json($order->load("product", "client"), 201);
+        activity("Create", "Order :id created.", [
+            ":id" => $order->id
+        ]);
+
+        return response()->json($order->load("product", "client"));
     }
 
     public function show(Order $order)
     {
+
+        activity("Read", "Order :id read.", [
+            ":id" => $order->id
+        ]);
+
         return response()->json($order->load("product", "client"));
     }
 
@@ -45,8 +54,8 @@ class OrderController extends Controller
             $data["total"] = $data["quantity"] * ($product ? $product->price : $order->product->price);
 
             if ($product) {
-                $product->stock += $order->quantity;
-                $product->stock -= $data["quantity"];
+                $product->quantity += $order->quantity;
+                $product->quantity -= $data["quantity"];
                 $product->save();
             }
         }
@@ -57,11 +66,22 @@ class OrderController extends Controller
 
         $order->update($data);
 
+        activity("Update", "Order :id updated.", [
+            ":id" => $order->id
+        ]);
+
         return response()->json($order->load("product", "client"));
     }
 
     public function destroy(Order $order)
     {
+        $order->product()->quantity += $order->quantity;
+        $order->product()->save();
+
+        activity("Delete", "Order :id deleted.", [
+            ":id" => $order->id
+        ]);
+
         return response()->json($order->delete());
     }
 }

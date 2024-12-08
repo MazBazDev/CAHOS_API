@@ -10,30 +10,48 @@ class ClientController extends Controller
 {
     public function index()
     {
-        return response()->json(Client::all());
+        activity("Read", "Clients read.");
+
+        return response()->json(Client::all()->load("orders", "orders.product", "orders.client"));
     }
 
     public function store(ClientRequest $request)
     {
         $client = Client::create($request->validated());
 
-        return response()->json($client->load("orders", "orders.product"), 201);
+        activity("Create", "Client :name created.", [
+            ":name" => $client->name
+        ]);
+
+        return response()->json($client->load("orders", "orders.product"));
     }
 
     public function show(Client $client)
     {
-        return response()->json($client->load("orders"));
+        activity("Read", "Client :name read.", [
+            ":name" => $client->name
+        ]);
+
+        return response()->json($client->load("orders", "orders.product"));
     }
 
     public function update(UpdateClientRequest $request, Client $client)
     {
         $client->update($request->validated());
 
-        return response()->json($client, 200);
+        activity("Update", "Client :name updated.", [
+            ":name" => $client->name
+        ]);
+
+        return response()->json($client);
     }
 
     public function destroy(Client $client)
     {
-        return response()->json($client->delete(), 204);
+        activity("Delete", "Client :name deleted.", [
+            ":name" => $client->name
+        ]);
+
+        return response()->json($client->delete());
     }
 }

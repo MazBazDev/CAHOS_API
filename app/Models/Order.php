@@ -17,6 +17,11 @@ class Order extends Model
         'status'
     ];
 
+    protected $casts = [
+        'total' => 'float',
+        'order_date' => 'datetime:c'
+    ];
+
     public function client(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Client::class);

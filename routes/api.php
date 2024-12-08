@@ -19,4 +19,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('clients', \App\Http\Controllers\ClientController::class);
     Route::apiResource('products', \App\Http\Controllers\ProductController::class);
     Route::apiResource('orders', \App\Http\Controllers\OrderController::class);
+
+    Route::get('/dashboard', [\App\Http\Controllers\HomeController::class, 'dashboard']);
+    Route::get('/alerts', [\App\Http\Controllers\HomeController::class, 'alerts']);
+    Route::get('/stats', [\App\Http\Controllers\HomeController::class, 'stats']);
+    Route::get('/logs', [\App\Http\Controllers\LogController::class, 'index']);
 });

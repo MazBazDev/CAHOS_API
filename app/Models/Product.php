@@ -17,6 +17,12 @@ class Product extends Model
 
     protected $with = ['category'];
 
+    protected $casts = [
+        'expiration_date' => 'datetime:c',
+        'created_at' => 'datetime:c',
+        'updated_at' => 'datetime:c'
+    ];
+
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Category::class);

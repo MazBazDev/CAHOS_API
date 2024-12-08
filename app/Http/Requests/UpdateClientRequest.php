@@ -14,9 +14,9 @@ class UpdateClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["string"],
-            "address" => ["string"],
-            "siret" => ["string"]
+            "name" => ["string", "sometimes"],
+            "address" => ["string", "sometimes"],
+            "siret" => ["string", "sometimes"]
         ];
     }
 }
