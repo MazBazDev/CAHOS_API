@@ -1,0 +1,24 @@
+version: "3"
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: Cahos_api
+        ports:
+            - 8010:8000
+        volumes:
+            - ./:/app
+        environment:
+            - APP_NAME="Cahos API by MazBaz"
+            - APP_ENV=local
+            - APP_DEBUG=true
+            - APP_TIMEZONE=UTC
+            - APP_URL=http://localhost
+            - DB_CONNECTION=sqlite
+        entrypoint: ['/bin/sh', '-c']
+        command:
+            - |
+                composer install
+                php artisan migrate
+                php artisan serve --host=0.0.0.0
