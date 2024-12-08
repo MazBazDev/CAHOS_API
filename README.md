@@ -54,10 +54,11 @@ The application uses the following environment variables, which are set in the `
 - APP_DEBUG=true
 - DB_CONNECTION=sqlite
 
-### Database Migrations
+## Database Migrations
 
-The application automatically runs database migrations and seeds the database when the Docker container starts.
+The application automatically applies database migrations when the Docker container starts.
 
+💡 To populate the database with sample data, you can run `php artisan db:seed` from within the API container.
 
 ## Database Schema
 
